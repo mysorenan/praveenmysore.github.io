@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Praveen N. Mysore</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background: #f5f5f5;
+      color: #333;
+      transition: background 0.3s, color 0.3s;
+    }
+    .dark {
+      background: #1a1a1a;
+      color: #f5f5f5;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px;
+      border-bottom: 1px solid #ccc;
+      position: sticky;
+      top: 0;
+      background: inherit;
+    }
+    nav a {
+      margin-right: 20px;
+      text-decoration: none;
+      font-weight: 600;
+      color: inherit;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    .right-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .toggle-btn {
+      background: none;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      padding: 6px 10px;
+      cursor: pointer;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+    }
+    .toggle-btn span {
+      margin-left: 6px;
+    }
+    main { padding: 20px; }
+    section { margin-bottom: 40px; }
+    h2 { border-bottom: 1px solid #999; padding-bottom: 6px; }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="#notes">Notes</a>
+      <a href="#archive">Archive</a>
+      <a href="#about">About</a>
+      <a href="#links">Links</a>
+    </nav>
+    <div class="right-controls">
+      <div class="name">Praveen N. Mysore</div>
+      <button class="toggle-btn" id="modeToggle">☀️<span>Light</span></button>
+    </div>
+  </header>
+
+  <main>
+    <!-- 
+    <section id="notes">
+      <h2>Notes</h2>
+    </section>
+
+    <section id="archive">
+      <h2>Archive</h2>
+    </section>
+
+    <section id="about">
+      <h2>About</h2>
+    </section>
+
+    <section id="links">
+      <h2>Links</h2>
+    </section>
+    -->
+  </main>
+
+  <script>
+    const toggleBtn = document.getElementById('modeToggle');
+    let darkMode = false;
+
+    toggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      darkMode = !darkMode;
+      toggleBtn.innerHTML = darkMode ? '🌙<span>Dark</span>' : '☀️<span>Light</span>';
+    });
+  </script>
+</body>
+</html>
