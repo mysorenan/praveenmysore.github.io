@@ -26,11 +26,15 @@
       top: 0;
       background: inherit;
     }
-    nav a {
-      margin-right: 20px;
+    nav a, .name {
+      margin: 0 12px;
       text-decoration: none;
       font-weight: 600;
       color: inherit;
+      font-family: inherit;
+    }
+    nav a:first-child {
+      margin-left: 0;
     }
     nav a:hover {
       text-decoration: underline;
@@ -38,7 +42,7 @@
     .right-controls {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 6px; /* reduced gap so name is closer to button */
     }
     .toggle-btn {
       background: none;
@@ -50,9 +54,6 @@
       display: flex;
       align-items: center;
     }
-    .toggle-btn span {
-      margin-left: 6px;
-    }
     main { padding: 20px; }
     section { margin-bottom: 40px; }
     h2 { border-bottom: 1px solid #999; padding-bottom: 6px; }
@@ -62,32 +63,21 @@
   <header>
     <nav>
       <a href="#notes">Notes</a>
+      <a href="#projects">Projects</a>
       <a href="#archive">Archive</a>
       <a href="#about">About</a>
       <a href="#links">Links</a>
     </nav>
     <div class="right-controls">
       <div class="name">Praveen N. Mysore</div>
-      <button class="toggle-btn" id="modeToggle">☀️<span>Light</span></button>
+      <button class="toggle-btn" id="modeToggle">☀️</button>
     </div>
   </header>
 
   <main>
-    <!-- 
-    <section id="notes">
-      <h2>Notes</h2>
-    </section>
-
-    <section id="archive">
-      <h2>Archive</h2>
-    </section>
-
-    <section id="about">
-      <h2>About</h2>
-    </section>
-
-    <section id="links">
-      <h2>Links</h2>
+    <!--
+    <section id="projects">
+      <h2>Projects</h2>
     </section>
     -->
   </main>
@@ -99,7 +89,7 @@
     toggleBtn.addEventListener('click', () => {
       document.body.classList.toggle('dark');
       darkMode = !darkMode;
-      toggleBtn.innerHTML = darkMode ? '🌙<span>Dark</span>' : '☀️<span>Light</span>';
+      toggleBtn.textContent = darkMode ? '🌙' : '☀️';
     });
   </script>
 </body>
