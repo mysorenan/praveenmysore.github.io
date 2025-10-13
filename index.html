@@ -65,7 +65,7 @@
       <a data-page="notes.html">Notes</a>
       <a data-page="projects.html">Projects</a>
       <a data-page="archive.html">Archive</a>
-      <a data-page="about.html">About</a>
+      <a data-page="about.html" class="active">About</a>
       <a data-page="links.html">Links</a>
     </nav>
     <div class="right-controls">
@@ -76,8 +76,7 @@
 
   <!-- ✅ Dynamic content container -->
   <main id="content">
-    <h2 class="text-3xl font-bold mb-4">Welcome</h2>
-    <p>This is the homepage of <strong>Praveen N. Mysore</strong>. Click any tab to explore more — pages load instantly without reloading.</p>
+    <p class="text-center text-gray-500 dark:text-gray-400 mt-10">Loading content...</p>
   </main>
 
   <script>
@@ -95,23 +94,35 @@
       toggleBtn.textContent = '🌙';
     }
 
-    // 🧭 Dynamic page loading
-    const navLinks = document.querySelectorAll('nav a');
-    const content = document.getElementById('content');
+    // 🧭 Dynamic page loading function
+    async function loadPage(page) {
+      const content = document.getElementById('content');
+      content.innerHTML = "<p class='text-center text-gray-500 dark:text-gray-400 mt-10'>Loading...</p>";
+      try {
+        const res = await fetch(page);
+        const html = await res.text();
+        content.innerHTML = html;
+        window.scrollTo(0, 0);
+      } catch (err) {
+        content.innerHTML = "<p class='text-red-500 text-center mt-10'>Error loading page.</p>";
+      }
+    }
 
+    // 🧩 Navigation click handling
+    const navLinks = document.querySelectorAll('nav a');
     navLinks.forEach(link => {
-      link.addEventListener('click', async (e) => {
+      link.addEventListener('click', e => {
         e.preventDefault();
         const page = link.getAttribute('data-page');
-        try {
-          const res = await fetch(page);
-          const html = await res.text();
-          content.innerHTML = html;
-          window.scrollTo(0, 0);
-        } catch (err) {
-          content.innerHTML = "<p class='text-red-500'>Error loading page.</p>";
-        }
+        loadPage(page);
+        navLinks.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
       });
+    });
+
+    // 🚀 Load About page by default
+    window.addEventListener('DOMContentLoaded', () => {
+      loadPage('about.html');
     });
   </script>
 </body>
