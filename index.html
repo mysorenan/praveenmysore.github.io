@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Praveen N. Mysore</title>
 
+  <!-- ✅ Tailwind setup -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = { darkMode: 'class' };
@@ -25,13 +26,13 @@
       position: sticky;
       top: 0;
       background: inherit;
+      z-index: 50;
     }
     nav a, .name {
       margin: 0 12px;
       text-decoration: none;
       font-weight: 600;
       color: inherit;
-      font-family: inherit;
       cursor: pointer;
     }
     nav a:hover {
@@ -50,7 +51,10 @@
       cursor: pointer;
       font-size: 16px;
     }
-    main { padding: 20px; min-height: 80vh; }
+    main {
+      padding: 20px;
+      min-height: 80vh;
+    }
   </style>
 </head>
 
@@ -70,21 +74,28 @@
     </div>
   </header>
 
-  <!-- Main content container -->
+  <!-- ✅ Dynamic content container -->
   <main id="content">
     <h2 class="text-3xl font-bold mb-4">Welcome</h2>
-    <p>This is your main landing page. Click the tabs above to load content dynamically without reloading the site.</p>
+    <p>This is the homepage of <strong>Praveen N. Mysore</strong>. Click any tab to explore more — pages load instantly without reloading.</p>
   </main>
 
   <script>
-    // 🌙 Toggle dark mode
+    // 🌙 Dark mode toggle
     const toggleBtn = document.getElementById('modeToggle');
     toggleBtn.addEventListener('click', () => {
       document.documentElement.classList.toggle('dark');
       toggleBtn.textContent = document.documentElement.classList.contains('dark') ? '🌙' : '☀️';
+      localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
     });
 
-    // 🧭 Dynamic content loading
+    // 💾 Remember theme preference
+    if (localStorage.getItem('theme') === 'dark') {
+      document.documentElement.classList.add('dark');
+      toggleBtn.textContent = '🌙';
+    }
+
+    // 🧭 Dynamic page loading
     const navLinks = document.querySelectorAll('nav a');
     const content = document.getElementById('content');
 
@@ -96,7 +107,7 @@
           const res = await fetch(page);
           const html = await res.text();
           content.innerHTML = html;
-          window.scrollTo(0, 0); // scroll to top on load
+          window.scrollTo(0, 0);
         } catch (err) {
           content.innerHTML = "<p class='text-red-500'>Error loading page.</p>";
         }
