@@ -5,12 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Praveen N. Mysore</title>
 
-  <!-- ✅ Tailwind setup -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    tailwind.config = {
-      darkMode: 'class'
-    };
+    tailwind.config = { darkMode: 'class' };
   </script>
 
   <style>
@@ -35,9 +32,7 @@
       font-weight: 600;
       color: inherit;
       font-family: inherit;
-    }
-    nav a:first-child {
-      margin-left: 0;
+      cursor: pointer;
     }
     nav a:hover {
       text-decoration: underline;
@@ -54,21 +49,20 @@
       padding: 6px 10px;
       cursor: pointer;
       font-size: 16px;
-      display: flex;
-      align-items: center;
     }
-    main { padding: 20px; }
+    main { padding: 20px; min-height: 80vh; }
   </style>
 </head>
 
 <body class="transition-colors duration-500 bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-100">
+
   <header>
     <nav>
-      <a href="#notes">Notes</a>
-      <a href="#projects">Projects</a>
-      <a href="#archive">Archive</a>
-      <a href="#about">About</a>
-      <a href="Links.html">Links</a>
+      <a data-page="notes.html">Notes</a>
+      <a data-page="projects.html">Projects</a>
+      <a data-page="archive.html">Archive</a>
+      <a data-page="about.html">About</a>
+      <a data-page="links.html">Links</a>
     </nav>
     <div class="right-controls">
       <div class="name">Praveen N. Mysore</div>
@@ -76,47 +70,37 @@
     </div>
   </header>
 
-  <main>
-  <!-- Start Section : About-->
-    <section id="about" class="py-12 bg-gray-50 dark:bg-gray-800 transition-colors duration-500">
-      <div class="max-w-7xl mx-auto px-8 flex flex-col md:flex-row items-start gap-10">
-
-        <!-- Photo -->
-        <div class="md:w-1/3 flex justify-center md:justify-end">
-          <img src="PraveenMysore.jpg" alt="Praveen Mysore"
-               class="w-64 md:w-80 lg:w-96 rounded-2xl shadow-lg object-cover">
-        </div>
-
-        <!-- Text -->
-        <div class="md:w-2/3 leading-relaxed">
-          <h2 class="text-3xl font-bold mb-4">About Me</h2>
-          <p>I’m <strong>Praveen Mysore</strong>, a Logic Design Engineer currently working at <strong>Ampere Computing</strong>, where I lead initiatives across micro-architecture, RTL design, and SoC timing/power closure for next-generation AI and data-center processors.</p>
-          <p class="mt-4">Before joining Ampere, I built my expertise across the full silicon lifecycle — from physical design and verification to architecture and system modeling. My academic foundation is rooted in <strong>Computer Engineering (M.S., University of Southern California)</strong>.</p>
-          <p class="mt-4">Beyond the lab and logic, I’m an endurance cyclist, dreamer, and engineer of life — chasing miles, meaning, and a bit of magic.</p>
-
-          <h3 class="text-2xl font-semibold mt-8 mb-3">About This Website</h3>
-          <p>This site is my <strong>personal archive and playground</strong> — a place to collect notes, publish technical musings, and share reflections that connect heart and hardware.</p>
-
-          <h3 class="text-2xl font-semibold mt-8 mb-3">Related Links</h3>
-          <ul class="list-disc list-inside">
-            <li><a href="#" class="text-blue-600 hover:underline">LinkedIn</a></li>
-            <li><a href="#" class="text-blue-600 hover:underline">GitHub</a></li>
-            <li><a href="#" class="text-blue-600 hover:underline">Strava</a></li>
-            <li><a href="#" class="text-blue-600 hover:underline">Instagram</a></li>
-          </ul>
-        </div>
-
-      </div>
-    </section>
-  <!-- End Section : About -->
+  <!-- Main content container -->
+  <main id="content">
+    <h2 class="text-3xl font-bold mb-4">Welcome</h2>
+    <p>This is your main landing page. Click the tabs above to load content dynamically without reloading the site.</p>
   </main>
 
-  <!-- ✅ Dark Mode Toggle -->
   <script>
+    // 🌙 Toggle dark mode
     const toggleBtn = document.getElementById('modeToggle');
     toggleBtn.addEventListener('click', () => {
       document.documentElement.classList.toggle('dark');
       toggleBtn.textContent = document.documentElement.classList.contains('dark') ? '🌙' : '☀️';
+    });
+
+    // 🧭 Dynamic content loading
+    const navLinks = document.querySelectorAll('nav a');
+    const content = document.getElementById('content');
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', async (e) => {
+        e.preventDefault();
+        const page = link.getAttribute('data-page');
+        try {
+          const res = await fetch(page);
+          const html = await res.text();
+          content.innerHTML = html;
+          window.scrollTo(0, 0); // scroll to top on load
+        } catch (err) {
+          content.innerHTML = "<p class='text-red-500'>Error loading page.</p>";
+        }
+      });
     });
   </script>
 </body>
