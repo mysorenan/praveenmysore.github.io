@@ -1,0 +1,785 @@
+Hamming Code : construction, encoding & decoding
+May 23, 2008 by Mathuranathan
+Keywords: Hamming code, error-correction code, digital communication, data storage, reliable transmission, computer memory systems, satellite communication systems, single-bit error, two-bit errors.
+
+What is a Hamming Code
+Hamming codes are a class of error-correcting codes that are commonly employed in digital communication and data storage systems to detect and correct errors that may occur during transmission or storage. They were created by Richard Hamming in the 1950s and bear his name.
+
+The central concept of Hamming codes is to introduce additional (redundant) bits to a message in order to enable the identification and correction of errors. By appending parity bits to the original message, Hamming codes can identify and correct single-bit errors.
+
+One notable characteristic of these codes is their ability to correct any single-bit error and detect any two-bit error, which has contributed to their widespread usage in computer memory systems, satellite communication systems, and other domains where reliable data transmission is crucial.
+
+Technical details of Hamming code
+Linear binary Hamming code falls under the category of linear block codes that can correct single bit errors. For every integer p ≥ 3 (the number of parity bits), there is a (2p-1, 2p-p-1) Hamming code. Here, 2p-1 is the number of symbols in the encoded codeword and 2p-p-1 is the number of information symbols the encoder can accept at a time. All such Hamming codes have a minimum Hamming distance dmin=3 and thus they can correct any single bit error and detect any two bit errors in the received vector. The characteristics of a generic (n,k) Hamming code is given below.
+
+Codeword length:
+n
+=
+2
+p
+−
+1
+Number of information symbols:
+k
+=
+2
+p
+−
+p
+−
+1
+Number of parity symbols:
+n
+−
+k
+=
+p
+Minimum distance:
+d
+m
+i
+n
+=
+3
+Error correcting capability:
+t
+=
+1
+Codeword length:
+Number of information symbols:
+Number of parity symbols:
+Minimum distance:
+Error correcting capability:
+​
+  
+​
+  
+n
+k
+n−k
+d 
+min
+​
+ 
+t
+​
+  
+=2 
+p
+ −1
+=2 
+p
+ −p−1
+=p
+=3
+=1
+​
+ 
+With the simplest configuration: p=3, we get the most basic (7, 4) binary Hamming code. The (7,4) binary Hamming block encoder accepts blocks of 4-bit of information, adds 3 parity bits to each such block and produces 7-bits wide Hamming coded blocks.
+
+Systematic & Non-systematic encoding
+Block codes like Hamming codes are also classified into two categories that differ in terms of structure of the encoder output:
+
+● Systematic encoding
+● Non-systematic encoding
+
+In systematic encoding, just by seeing the output of an encoder, we can separate the data and the redundant
+bits (also called parity bits). In the non-systematic encoding, the redundant bits and data bits are interspersed.
+
+Systematic encoding non systematic encoding
+Figure 1: Systematic encoding and non-systematic encoding
+Constructing (7,4) Hamming code
+Hamming codes can be implemented in systematic or non-systematic form. A systematic linear block code can be converted to non-systematic form by elementary matrix transformations. A non-systematic Hamming code is described next.
+
+[table “36” not found /]
+
+Let a codeword belonging to (7, 4) Hamming code be represented by [D7,D6,D5,P4,D3,P2,P1], where D represents information bits and P represents parity bits at respective bit positions. The subscripts indicate the left to right position taken by the data and the parity bits. We note that the parity bits are located at position that are powers of two (bit positions 1,2,4).
+
+Now, represent the bit positions in binary.
+
+Seeing from left to right, the first parity bit (P1) covers the bits at positions whose binary representation has 1 at the least significant bit. We find that P1 covers the following bit positions
+
+bit position in decimal
+:
+in binary
+1
+:
+00
+1
+3
+:
+01
+1
+5
+:
+10
+1
+7
+:
+11
+1
+bit position in decimal
+1
+3
+5
+7
+​
+  
+:in binary
+:001
+:011
+:101
+:111
+​
+ 
+Similarly, the second parity bit (P2) covers the bits at positions whose binary representation has 1 at the second least significant bit. Hence, P2 covers the following bit positions.
+
+bit position in decimal
+:
+in binary
+2
+:
+0
+1
+0
+3
+:
+0
+1
+1
+6
+:
+1
+1
+0
+7
+:
+1
+1
+1
+bit position in decimal
+2
+3
+6
+7
+​
+  
+:in binary
+:010
+:011
+:110
+:111
+​
+ 
+Finally, the third parity bit (P4) covers the bits at positions whose binary representation has 1 at the most significant bit. Hence, P4 covers the following bit positions
+
+bit position in decimal
+:
+in binary
+4
+:
+1
+00
+5
+:
+1
+01
+6
+:
+1
+10
+7
+:
+1
+11
+bit position in decimal
+4
+5
+6
+7
+​
+  
+:in binary
+:100
+:101
+:110
+:111
+​
+ 
+If we follow even parity scheme for parity bits, the number of 1’s covered by the parity bits must add up to an even number. Which implies that the XOR of bits covered by the parity (including the parity bits) must result in 0. Therefore, the following equations hold.
+
+P
+1
+=
+D
+3
+⊕
+D
+5
+⊕
+D
+7
+P
+2
+=
+D
+3
+⊕
+D
+6
+⊕
+D
+7
+P
+4
+=
+D
+5
+⊕
+D
+6
+⊕
+D
+7
+P 
+1
+​
+ 
+P 
+2
+​
+ 
+P 
+4
+​
+ 
+​
+  
+=D 
+3
+​
+ ⊕D 
+5
+​
+ ⊕D 
+7
+​
+ 
+=D 
+3
+​
+ ⊕D 
+6
+​
+ ⊕D 
+7
+​
+ 
+=D 
+5
+​
+ ⊕D 
+6
+​
+ ⊕D 
+7
+​
+ 
+​
+ 
+For clarity, let’s represent the subscripts in binary.
+
+P
+00
+1
+=
+D
+01
+1
+⊕
+D
+10
+1
+⊕
+D
+11
+1
+P
+0
+1
+0
+=
+D
+0
+1
+1
+⊕
+D
+0
+1
+0
+⊕
+D
+1
+1
+1
+P
+1
+00
+=
+D
+1
+01
+⊕
+D
+1
+10
+⊕
+D
+1
+11
+P 
+001
+​
+ 
+P 
+010
+​
+ 
+P 
+100
+​
+ 
+​
+  
+=D 
+011
+​
+ ⊕D 
+101
+​
+ ⊕D 
+111
+​
+ 
+=D 
+011
+​
+ ⊕D 
+010
+​
+ ⊕D 
+111
+​
+ 
+=D 
+101
+​
+ ⊕D 
+110
+​
+ ⊕D 
+111
+​
+ 
+​
+ 
+Following table illustrates the concept of constructing the Hamming code as described by R.W Hamming in his groundbreaking paper [1].
+
+Construction of (7,4) binary Hamming code
+Table 1: Construction of (7,4) binary Hamming code
+We note that the parity bits and data columns are interspersed. This is an example of non-systematic Hamming code structure. We can continue our work on the table above as it is. Or, we can also re-arrange the entries of that table using elemental transformations, such that a systematic Hamming code is rendered.
+
+Re-arranging Hamming code using transformation (non-systematic to systematic code)
+Figure 2: Re-arranging Hamming code using transformation (non-systematic to systematic code)
+After the re-arrangement of columns, we see that the parity columns are nicely clubbed together at the end. We can also drop the subscripts given to the parity/data locations and re-index them according to our convenience. This gives the following structure to the (7,4) Hamming code.
+
+Example for Systematic Hamming code
+Figure 3: Example for Systematic Hamming code
+We will use the above systematic structure in the following discussion.
+
+Encoding process
+Given the structure in Figure 3, the parity bits are calculated from the following linearly independent equations using modulo-2 additions.
+
+P
+1
+=
+D
+1
+⊕
+D
+2
+⊕
+D
+3
+P
+2
+=
+D
+2
+⊕
+D
+3
+⊕
+D
+4
+P
+3
+=
+D
+1
+⊕
+D
+3
+⊕
+D
+4
+P 
+1
+​
+ 
+P 
+2
+​
+ 
+P 
+3
+​
+ 
+​
+  
+=D 
+1
+​
+ ⊕D 
+2
+​
+ ⊕D 
+3
+​
+ 
+=D 
+2
+​
+ ⊕D 
+3
+​
+ ⊕D 
+4
+​
+ 
+=D 
+1
+​
+ ⊕D 
+3
+​
+ ⊕D 
+4
+​
+ 
+​
+ 
+Computing the parity bits for (7,4) Hamming code
+Figure 4: Computing the parity bits for (7,4) Hamming code
+At the transmitter side, a Hamming encoder implements a generator matrix – 
+G
+G. It is easier to construct the generator matrix from the linear equations listed in equation above. The linear equations show that the information bit D1 influences the calculation of parities at P1 and P3 . Similarly, the information bit D2 influences P1 and P2, D3 influences P1, P2 & P3 and D4 influences P2 & P3.
+
+\mathbf{G} = \bordermatrix{ & D_1 & D_2 & D_3 & D_4 & P_1 & P_2 & P_3 \cr & 1 & 0 & 0 & 0 & 1 & 0 & 1 \cr & 0 & 1 & 0 & 0 & 1 & 1 & 0 \cr & 0 & 0 & 1 & 0 & 1 & 1 & 1 \cr & 0 & 0 & 0 & 1 & 0 & 1 & 1 } &s=2
+
+Represented as matrix operations, the encoder accepts 4 bit message block 
+m
+m, multiplies it with the generator matrix 
+G
+G and generates 7 bit codewords 
+c
+c. Note that all the operations (addition, multiplication etc.,) are in modulo-2 domain.
+
+c
+=
+m
+G
+c=mG
+Given a generator matrix, the Matlab code snippet for generating a codebook containing all possible codewords (
+c
+∈
+C
+c∈C) is given below. The resulting codebook 
+C
+C can be used as a Look-Up-Table (LUT) when implementing the encoder. This implementation will avoid repeated multiplication of the input blocks and the generator matrix. The list of all possible codewords for the generator matrix (
+G
+G) given above are listed in table 2.
+
+
+Table 2: All possible codewords for (7,4) Hamming code
+Program: Generating all possible codewords from Generator matrix
+%program to generate all possible codewords for (7,4) Hamming code
+G=[ 1 0 0 0 1 0 1;
+0 1 0 0 1 1 0;
+0 0 1 0 1 1 1;
+0 0 0 1 0 1 1];%generator matrix - (7,4) Hamming code
+m=de2bi(0:1:15,'left-msb');%list of all numbers from 0 to 2ˆk
+codebook=mod(m*G,2) %list of all possible codewords
+Decoding process – Syndrome decoding
+The three check equations for the given generator matrix (
+G
+G) for the sample (7,4) Hamming code, can be expressed collectively as a parity check matrix – 
+H
+H. Parity check matrix finds its usefulness in the receiver side for error-detection and error-correction.
+
+\mathbf{H} = \bordermatrix{ & D_1 & D_2 & D_3 & D_4 & P_1 & P_2 & P_3 \cr & 1 & 1 & 1&0&1&0&0 \cr & 0&1&1&1&0&1&0 \cr & 1 & 0&1&1&0&0&1 } &s=2
+
+According to parity-check theorem, for every generator matrix G, there exists a parity-check matrix H, that spans the null-space of G. Therefore, if c is a valid codeword, then it will be orthogonal to each row of H.
+
+c
+H
+T
+=
+0
+cH 
+T
+ =0
+Therefore, if 
+H
+H is the parity-check matrix for a codebook 
+C
+C, then a vector 
+c
+c in the received code space is a valid codeword if and only if it satisfies 
+c
+H
+T
+=
+0
+cH 
+T
+ =0.
+
+Consider a vector of received word 
+r
+=
+c
++
+e
+r=c+e, where 
+c
+c is a valid codeword transmitted and 
+e
+e is the error introduced by the channel. The matrix product 
+r
+H
+T
+rH 
+T
+  is defined as the syndrome for the received vector 
+r
+r, which can be thought of as a linear transformation whose null space is 
+C
+C [2].
+
+s
+=
+r
+H
+T
+=
+(
+c
++
+e
+)
+H
+T
+=
+c
+H
+T
++
+e
+H
+T
+=
+0
++
+e
+H
+T
+=
+e
+H
+T
+s
+​
+  
+=rH 
+T
+ 
+=(c+e)H 
+T
+ 
+=cH 
+T
+ +eH 
+T
+ 
+=0+eH 
+T
+ 
+=eH 
+T
+ 
+​
+ 
+Thus, the syndrome is independent of the transmitted codeword 
+c
+c and is solely a function of the error pattern 
+e
+e. It can be determined that if two error vectors 
+e
+e and 
+e
+’
+e’ have the same syndrome, then the error vectors must differ by a nonzero codeword.
+
+s
+=
+e
+H
+T
+=
+e
+’
+H
+T
+⇒
+(
+e
+–
+e
+’
+)
+H
+T
+=
+0
+⇒
+(
+e
+–
+e
+’
+)
+=
+c
+∈
+C
+s
+​
+  
+=eH 
+T
+ =e’H 
+T
+ 
+⇒(e–e’)H 
+T
+ =0
+⇒(e–e’)=c∈C
+​
+ 
+It follows from the equation above, that decoding can be performed by computing the syndrome of the received word, finding the corresponding error pattern and subtracting (equivalent to addition in 
+G
+F
+(
+2
+)
+GF(2) domain) the error pattern from the received word. This obviates the need to store all the vectors as in a standard array decoding and greatly reduces the memory requirements for implementing the decoder.
+
+Following is the syndrome table for the (7,4) Hamming code example, illustrated here.
+
+
+Table 2: Syndrome table for (7,4) Hamming code
+Some properties of generator and parity-check matrices
+The generator matrix 
+G
+G and the parity-check matrix 
+H
+H satisfy the following property
+
+G
+H
+T
+=
+0
+GH 
+T
+ =0
+Note that the generator matrix is in standard form where the elements are partitioned as
+
+G
+=
+[
+I
+k
+∣
+P
+]
+G=[ 
+I 
+k
+​
+ ∣P
+​
+ ]
+where Ik is a k⨉k identity matrix and P is of dimension k ⨉ (n-k). When G is a standard form matrix, the corresponding parity-check matrix H can be easily determined as
+
+H
+=
+[
+−
+P
+T
+∣
+I
+n
+−
+k
+]
+H=[−P 
+T
+ ∣I 
+n−k
+​
+ ]
+In Galois Field – GF(2), the negation of a number is simply its absolute value. Hence the H matrix for binary codes can be simply written as
+
+H
+=
+[
+P
+T
+∣
+I
+n
+−
+k
+]
+H=[P 
+T
+ ∣I 
+n−k
+​
+ ]
+References
+[1] R.W Hamming, “Error detecting and error correcting codes”, Bell System Technical Journal. 29 (2): 147–160, 1950.↗
+[2] Stephen B. Wicker, “Error Control Systems for digital communication storage”, Prentice Hall, ISBN 0132008092, 1995.
+
+Topics in this Chapter
+[table “25” not found /]
+Books by the author
+[table “23” not found /]
+CategoriesChannel Coding, Hamming Codes, Latest Articles, Matlab Codes
+TagsChannel Coding, Hamming Code, non-systematic coding, systematic coding
+Shannon theorem – demystified
+Reed Solomon Codes – Introduction
