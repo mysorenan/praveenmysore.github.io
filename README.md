@@ -2,10 +2,11 @@
 praveenmysore.github.io/
 ├── index.html                 # Main landing page
 ├── pages/
-│   ├── tabs.html
-│   ├── notes.html
-│   ├── archives.html
-│   └── links.html
+│   ├── notes/
+│   ├── projects/
+│   ├── archive/
+│   ├── about/
+│   └── links/
 ├── assets/
 │   ├── images/
 │   ├── icons/
